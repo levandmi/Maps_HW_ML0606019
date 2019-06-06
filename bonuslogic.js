@@ -42,20 +42,14 @@ var techURL = "https://raw.githubusercontent.com/fraxen/tectonicplates/master/Ge
         "<p>" + "Mag: " + response.features[i].properties.mag + "</p>")
       )
       }
-  })
-
-
-//   Tech plates
-var techPlate = d3.json(techURL, function(data) {
-    // Creating a GeoJSON layer with the retrieved data
-    L.geoJson(data);
-  });
+      d3.json(techURL, function(data) {
+        // Creating a GeoJSON layer with the retrieved data
+       techPlate = L.geoJson(data)
 
 
 
-
-  // Define variables for our base layers
-  var streetmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+// Define variables for our base layers
+var streetmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
     attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
     maxZoom: 18,
     id: "mapbox.streets",
@@ -71,7 +65,7 @@ var techPlate = d3.json(techURL, function(data) {
   
   // Create two separate layer groups: one for cities and one for states
   var quakes = L.layerGroup(quakeCircle);
-  var plates = L.layerGroup(techPlate);
+  var plates = L.layerGroup([techPlate]);
   
   // Create a baseMaps object
   var baseMaps = {
@@ -97,4 +91,20 @@ var techPlate = d3.json(techURL, function(data) {
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
   }).addTo(myMap);
+
+
+
+
+
+      })
+  })
+
+
+//   Tech plates
+
+
+
+
+
+  
   
